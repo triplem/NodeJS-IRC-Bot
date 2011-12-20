@@ -5,8 +5,8 @@
  * @website		http://www.michaelowens.nl
  * @copyright	Michael Owens 2011
  */
-var sys = require( 'sys' ),
-	irc = require( './irc' );
+var sys = require('sys'),
+	irc = require('./irc');
 
 /**
  * Config
@@ -20,12 +20,12 @@ var config = {
 	channels:	['#nodejs'],
 	command:	'.',
 	debug:		false,
-	
-	plugins:	[ 'global', 'reload', 'gezien', 'textfilter' ]
+
+	plugins:	['global', 'reload', 'gezien', 'textfilter']
 };
 
 /**
  * Let's power up
  */
-var ircClient = new irc.Server( config );
-ircClient.connect( );
+var ircClient = new irc.Server(config);
+ircClient.connect();
