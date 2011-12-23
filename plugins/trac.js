@@ -106,7 +106,10 @@ Plugin.prototype.announceChangeset = function(changeset, msg) {
 	if (changeset && changeset.length && /^\d+$/.test(changeset)) {
 		jsdom.env(trac, ["http://code.jquery.com/jquery-1.5.min.js"],
 		function(errors, window) {
-			irc.send.apply(irc, [target, user + ':', window.$('.message.searchable')[0].textContent.trim(), '- see:', trac]);
+            var date = new Date(window.$('.time .timeline')[0].getAttribute('title').split(' ')[0].trim()).toGMTString(),
+                message = window.$('.message.searchable')[0].textContent.trim();
+
+			irc.send.apply(irc, [target, user + ':', message, ' - Checked in at', date, '- see:', trac]);
 		});
 	}
 };

@@ -28,7 +28,7 @@ Plugin.prototype.trigGezien = function(msg) {
         params = m.split(' ');
 
 	params.shift();
-	chan.send('Reloading plugin: ' + params[0]);
+	irc.send(chan || u, 'Reloading plugin: ' + params[0]);
 	irc.loadPlugin(params[0]);
 
 
@@ -37,11 +37,12 @@ Plugin.prototype.trigGezien = function(msg) {
 Plugin.prototype.unloadPlugin = function(msg) {
 	var irc = this.irc, // irc object
 	    c = msg.arguments[0], // channel
+        chan = irc.channels[c], // channel object
 		u = irc.user(msg.prefix), // user
 		m = msg.arguments[1], // message
         params = m.split(' ');
 
 	params.shift();
-	chan.send('unloading plugin: ' + params[ 0]);
+	irc.send(chan || u, 'unloading plugin: ' + params[ 0]);
     irc.unloadPlugin(params[0]);
 };
