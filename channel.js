@@ -13,19 +13,19 @@ var sys = require('sys');
 // to prevent onReply from happening more than once
 var _init = false;
 exports.initialize = function(irc) {
+    var _this = irc;
     irc.on('numeric', function(msg) {
-        var command = msg.commands;
-
+        var command = msg.command;
         if (command !== '353') {
             return;
         }
+
         var chan = msg.arguments[2],
             // replace + and @ prefixes for channel privs, we only want the nick
             nicks = msg.arguments[3].replace(/\+|@/g, '').split(' '),
-            chans = that.irc.channels,
+            chans = _this.channels,
             user = null,
-            allusers = that.irc.users,
-            irc = that.irc;
+            allusers = _this.users;
 
         // TODO: support all channel prefixes - need to find proper documentation to list these
         if (!chan || chan.charAt(0) !== '#') {
@@ -35,7 +35,7 @@ exports.initialize = function(irc) {
         for(var i=0; i<nicks.length; i++) {
             user = allusers[nicks[i]];
             if (!user) {
-                user = allusers[nicks[i]] = new irc.userObj(irc, nicks[i]);
+                user = allusers[nicks[i]] = new _this.userObj(_this, nicks[i]);
             }
             user.join(chan.name);
         }
@@ -43,8 +43,6 @@ exports.initialize = function(irc) {
 };
 
 Channel = exports.Channel = function(irc, room, join, password) {
-    var that = this;
-
 	this.irc = irc;
 	this.name = room;
 	this.inRoom = false;

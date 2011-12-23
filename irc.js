@@ -27,6 +27,9 @@ Server.prototype.initialize = function(config) {
 	this.command = config.command || '.';
     this.userchannels = config.channels || [];
 
+    // carry over config object to allow plugins to access it
+    this.config = config || {};
+
     // channel constructor and channel hash
     this.channelObj = channel.Channel;
 	this.channels = {};
@@ -50,10 +53,10 @@ Server.prototype.initialize = function(config) {
     /*
      * Hook for User/Channel inits
      */
-    if (typeof channel.intialize === "function") {
+    if (typeof channel.initialize === "function") {
         channel.initialize(this);
     }
-    if (typeof user.intialize === "function") {
+    if (typeof user.initialize === "function") {
         user.initialize(this);
     }
 
@@ -281,7 +284,9 @@ Server.prototype.raw = function(cmd) {
 
 // public method to send PRIVMSG cleanly
 Server.prototype.send = function(target, msg) {
-    if (arguments.length === 2) {
+    msg = Array.prototype.slice.call(arguments, 1).join(' ') + "\r\n";
+
+    if (arguments.length > 1) {
         this.raw('PRIVMSG', target, ':' + msg);
     }
 };
@@ -353,36 +358,27 @@ Server.prototype.unloadPlugin = function(name) {
 
 
 Server.prototype.loadPlugin = function(name) {
-
     this.unloadPlugin(name);
-
 	var that = this;
 	fs.readFile('./plugins/' + name + '.js', 'utf8', function( err, data) {
-
 		if (err) {
-
 			sys.puts(err);
-
 		} else {
-
 			eval(data);
-
 			that.plugins[name] = new Plugin(that);
 
 			/*
 			 * Hooks
 			 */
-			if (typeof that.plugins[name ].onConnect == 'function' ) that.addPluginListener( name, 'connect', that.plugins[ name].onConnect);
-			if (typeof that.plugins[name ].onData == 'function' ) that.addPluginListener( name, 'data', that.plugins[ name].onData);
-            if (typeof that.plugins[name ].onNumeric == 'function' ) that.addPluginListener( name, 'numeric', that.plugins[ name].onNumeric);
-			if (typeof that.plugins[name ].onMessage == 'function' ) that.addPluginListener( name, 'message', that.plugins[ name].onMessage);
-			if (typeof that.plugins[name ].onJoin == 'function' ) that.addPluginListener( name, 'join', that.plugins[ name].onJoin);
-			if (typeof that.plugins[name ].onPart == 'function' ) that.addPluginListener( name, 'part', that.plugins[ name].onPart);
-			if (typeof that.plugins[name ].onQuit == 'function' ) that.addPluginListener( name, 'quit', that.plugins[ name].onQuit);
-			if (typeof that.plugins[name ].onNick == 'function' ) that.addPluginListener( name, 'nick', that.plugins[ name].onNick);
-            if (typeof that.plugins[name ].onPrivateMessage == 'function' ) that.addPluginListener( name, 'private_message', that.plugins[ name].onPrivateMessage);
-		}
+            ['connect', 'data', 'numeric', 'message', 'join', 'part', 'quit', 'nick', 'privateMessage'].forEach(function(event) {
+                var onEvent = 'on' + event.charAt(0).toUpperCase() + event.substr(1),
+                    callback = this.plugins[name][onEvent];
 
+                if (typeof callback == 'function') {
+                    this.addPluginListener(name, event, callback);
+                }
+            }, that);
+		}
 	});
 };
 

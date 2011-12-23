@@ -1,3 +1,14 @@
+12/23/2011
+* ADDED:
+*   couchdb_log plugin -- logs all events (except privmsg to the bot) to a couchdb instance
+*   coucbdb_seen plugin -- utilizes the logs from couchdb_log to generate intelligent last seen reports
+*        -- Also supports formatted responses
+*   freenode plugin -- identifies the bot to nickserv once connected to the network
+*   trac plugin -- interfaces with trac instance over RPC for #ticket data and via scraping for [changeset] data
+*
+* UPDATED:
+*   irc.js/user.js/channel.js Fixed problem with user tracking in memory
+
 12/20/2011
 ==========
 * ADDED:

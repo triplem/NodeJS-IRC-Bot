@@ -19,8 +19,6 @@ User = exports.User = function(irc, /* fully qualified irc hostmask - nick!ident
 };
 
 User.prototype.update = function(mask) {
-    console.log('USER.update: ', mask);
-
     var match = mask.match(/([^!]+)!([^@]+)@(.+)/);
 
     if (!match && this.passive === true) {
@@ -37,12 +35,33 @@ User.prototype.update = function(mask) {
     this.nick = this.nick.replace(/\+|@/, '');
 };
 
+User.prototype.changeNick = function(newnick) {
+    var irc = this.irc,
+        allusers = irc.users,
+        oldnick = this.nick,
+        user = allusers[oldnick],
+        userchans = user.channels,
+        allchans = irc.channels;
+
+    userchans.forEach(function(channel) {
+        var chan = allchans[channel],
+            idx = chan.users.indexOf(oldnick);
+
+        if (idx !== -1) {
+            chan.users[idx] = newnick;
+        }
+    });
+    allusers[newnick] = user;
+    delete allusers[oldnick];
+    console.log("CHANGENICK: ", allusers);
+};
+
 User.prototype.join = function(channel) {
     if (!channel) {
         console.log("FAIL USER JOIN: ", this.nick);
         return;
     }
-    console.log("USER JOIN: ", this.nick, channel);
+
     var channels = this.channels,
         chan = this.irc.channels[channel];
 
@@ -60,7 +79,7 @@ User.prototype.part = function(/* string or Channel object */ channel) {
         console.log("FAIL USER PART: ", this.nick);
         return;
     }
-    console.log("USER PART: ", this.nick, channel);
+
     var channels = this.channels,
         irc = this.irc,
         allchans = irc.channels,

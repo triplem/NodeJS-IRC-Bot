@@ -38,6 +38,6 @@ Plugin.prototype.onNumeric = function(msg) {
         var chan = new irc.channelObj(irc, channelName, true, password);
 
         irc.channels[chan.name] = chan;
-		chan.send('Hey, did you miss me? ;-)');
+//		chan.send('Hey, did you miss me? ;-)');
     }
 };
