@@ -1,4 +1,5 @@
 12/23/2011
+==========
 * ADDED:
 *   couchdb_log plugin -- logs all events (except privmsg to the bot) to a couchdb instance
 *   coucbdb_seen plugin -- utilizes the logs from couchdb_log to generate intelligent last seen reports
