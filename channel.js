@@ -8,7 +8,7 @@
  * @website		http://www.michaelowens.nl
  * @copyright	Michael Owens 2011
  */
-var sys = require('sys');
+var sys = require('util');
 
 // to prevent onReply from happening more than once
 var _init = false;

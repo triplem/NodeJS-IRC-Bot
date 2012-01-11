@@ -5,7 +5,7 @@
  * @website		http://twitter.com/ktiedt
  * @copyright	Karl Tiedt 2011
  */
-var sys = require('sys');
+var sys = require('util');
 
 User = exports.User = function(irc, /* fully qualified irc hostmask - nick!ident@host */ mask) {
 	this.irc = irc;

@@ -5,7 +5,7 @@
  * @website		http://www.michaelowens.nl
  * @copyright	Michael Owens 2011
  */
-var sys = require('sys'),
+var sys = require('util'),
 	irc = require('./irc');
 
 /**
@@ -21,7 +21,7 @@ var config = {
 	command:	'!',
 	debug:		false,
 
-	plugins:	['global', 'reload', 'freenode', 'couchdb_log', 'couchdb_seen', 'trac']
+	plugins:	['global', 'reload', 'freenode', 'couchdb_log', 'couchdb_seen', 'trac', 'dtk_api']
 };
 
 /**

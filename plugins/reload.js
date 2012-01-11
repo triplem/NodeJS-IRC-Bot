@@ -5,7 +5,7 @@
  * @website		http://www.michaelowens.nl
  * @copyright	Michael Owens 2011
  */
-var sys = require('sys');
+var sys = require('util');
 
 Plugin = exports.Plugin = function(irc) {
 	this.name = 'reload';
@@ -28,7 +28,7 @@ Plugin.prototype.trigGezien = function(msg) {
         params = m.split(' ');
 
 	params.shift();
-	irc.send(chan || u, 'Reloading plugin: ' + params[0]);
+	irc.send(chan && chan.name || u, 'Reloading plugin: ' + params[0]);
 	irc.loadPlugin(params[0]);
 
 
@@ -43,6 +43,6 @@ Plugin.prototype.unloadPlugin = function(msg) {
         params = m.split(' ');
 
 	params.shift();
-	irc.send(chan || u, 'unloading plugin: ' + params[ 0]);
+	irc.send(chan && chan.name || u, 'unloading plugin: ' + params[ 0]);
     irc.unloadPlugin(params[0]);
 };

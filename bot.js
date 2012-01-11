@@ -5,7 +5,7 @@
  * @website		http://www.michaelowens.nl
  * @copyright	Michael Owens 2011
  */
-var sys = require('sys'),
+var sys = require('util'),
 	irc = require('./irc');
 
 /**

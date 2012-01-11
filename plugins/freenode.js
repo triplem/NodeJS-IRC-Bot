@@ -8,7 +8,7 @@
  * Identifies to nickserv on FreeNode onConnect
  *      update nickPass as needed
  */
-var sys = require('sys');
+var sys = require('util');
 
 Plugin = exports.Plugin = function( irc ) {
   this.name = 'freenode';

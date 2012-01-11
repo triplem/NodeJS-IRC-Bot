@@ -10,7 +10,7 @@
  * host: Base URL for trac instance
  */
 
-var sys = require('sys');
+var sys = require('util');
 
 Plugin = exports.Plugin = function(irc) {
 	this.name = 'trac';

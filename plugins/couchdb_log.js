@@ -7,7 +7,7 @@
  *
  */
 
-var sys = require('sys'),
+var sys = require('util'),
 	cradle = require('cradle'),
 	c = new(cradle.Connection)();
 
@@ -18,7 +18,7 @@ Plugin = exports.Plugin = function(irc) {
 	this.author = 'Karl Tiedt';
 
 	this.irc = irc;
-    this.db = c.database('db_name');
+    this.db = c.database('dojobot');
 
     // fields that are saved to the database documents
     this.fields = ['nick', 'channel', 'host', 'date', 'message', 'type'];
@@ -56,8 +56,9 @@ Plugin.prototype.onNick = function(msg) {
         user = irc.users[oldnick],
         newnick = msg.arguments[0];
 
+    console.log("onNICK: ", oldnick, newnick, typeof irc.users, typeof irc.users[oldnick], typeof irc.users[newnick]);
     // trigger nick change on the User object -- updates all references to oldnick
-    user.changeNick(newnick);
+    user && user.changeNick(newnick);
 	this.updateLog(msg, {channel: '', message: newnick});
 };
 

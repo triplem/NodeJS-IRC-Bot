@@ -6,7 +6,7 @@
  * @copyright	Michael Owens 2011
  */
 
-var sys = require('sys'),
+var sys = require('util'),
 	net = require('net'),
 	fs = require('fs'),
     user = require ('./user' ),

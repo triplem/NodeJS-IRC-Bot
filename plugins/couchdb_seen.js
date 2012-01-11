@@ -7,7 +7,7 @@
  *
  */
 
-var sys = require('sys');
+var sys = require('util');
 
 Plugin = exports.Plugin = function( irc ) {
 	this.name = 'couchdb_seen';
