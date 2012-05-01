@@ -128,7 +128,7 @@ Server.prototype.onMessage = function(msg) {
 	}
 
 	var target = msg.arguments[0], // target
-		nick = this.user(msg.prefix), // nick
+		nick = (this.user(msg.prefix) || '').toLowerCase(), // nick
         user = this.users[nick], // user
 		m, // message
         command = msg.command, // command
@@ -163,7 +163,11 @@ Server.prototype.onMessage = function(msg) {
 		case (command === 'JOIN'):
             if (user) {
                 user.update(msg.prefix);
+                user.join(target);
+            } else {
+                user = this.users[nick] = new this.userObj(this, nick);
             }
+            user.join(target);
 
 			this.emit('join', msg);
 			break;
@@ -171,6 +175,7 @@ Server.prototype.onMessage = function(msg) {
 		case (command === 'PART'):
             if (user) {
                 user.update(msg.prefix);
+                user.part(target);
             }
 
 			this.emit('part', msg);
@@ -179,6 +184,7 @@ Server.prototype.onMessage = function(msg) {
 		case (command === 'QUIT'):
             if (user) {
                 user.update(msg.prefix);
+                user.quit(msg)
             }
 
 			this.emit('quit', msg);
@@ -355,7 +361,6 @@ Server.prototype.unloadPlugin = function(name) {
 
 
 };
-
 
 Server.prototype.loadPlugin = function(name) {
     this.unloadPlugin(name);

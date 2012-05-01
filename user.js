@@ -61,6 +61,7 @@ User.prototype.join = function(channel) {
         console.log("FAIL USER JOIN: ", this.nick);
         return;
     }
+    channel = channel.toLowerCase();
 
     var channels = this.channels,
         chan = this.irc.channels[channel];
@@ -79,6 +80,7 @@ User.prototype.part = function(/* string or Channel object */ channel) {
         console.log("FAIL USER PART: ", this.nick);
         return;
     }
+    channel = channel.toLowerCase();
 
     var channels = this.channels,
         irc = this.irc,
@@ -93,8 +95,22 @@ User.prototype.part = function(/* string or Channel object */ channel) {
             delete allchans[channel];
         }
     }
+    console.log(chan.users.join(' '));
     if (this.channels.length == 0 && this.nick !== irc.nick) {
         delete allusers[this.nick];
+    }
+};
+
+User.prototype.quit = function() {
+    var chan,
+        idx;
+
+    for(var i=0;i<this.channels.length;i++){
+        chan = this.channels[i];
+        idx = chan.users.indexOf(this.nick);
+        if (idx != -1) {
+            chan.users.splice(idx, 1);
+        }
     }
 };
 

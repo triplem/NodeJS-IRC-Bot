@@ -25,7 +25,8 @@ exports.initialize = function(irc) {
             nicks = msg.arguments[3].replace(/\+|@/g, '').split(' '),
             chans = _this.channels,
             user = null,
-            allusers = _this.users;
+            allusers = _this.users,
+            nick;
 
         // TODO: support all channel prefixes - need to find proper documentation to list these
         if (!chan || chan.charAt(0) !== '#') {
@@ -33,9 +34,10 @@ exports.initialize = function(irc) {
         }
         chan = chans[chan];
         for(var i=0; i<nicks.length; i++) {
-            user = allusers[nicks[i]];
+            nick = nicks[i].toLowerCase();
+            user = allusers[nick];
             if (!user) {
-                user = allusers[nicks[i]] = new _this.userObj(_this, nicks[i]);
+                user = allusers[nick] = new _this.userObj(_this, nicks[i]);
             }
             user.join(chan.name);
         }
@@ -44,7 +46,7 @@ exports.initialize = function(irc) {
 
 Channel = exports.Channel = function(irc, room, join, password) {
 	this.irc = irc;
-	this.name = room;
+	this.name = room.toLowerCase();
 	this.inRoom = false;
 	this.password = password;
     this.users = [];
@@ -55,10 +57,11 @@ Channel = exports.Channel = function(irc, room, join, password) {
 };
 
 Channel.prototype.join = function() {
-	var chans = this.irc.channels;
+	var chans = this.irc.channels,
+        name = this.name.toLowerCase();
 
-    chans[this.name] = this;
-	this.irc.raw('JOIN', this.name, this.password);
+    chans[name] = this;
+	this.irc.raw('JOIN', name, this.password);
 	this.inRoom = true;
 };
 
