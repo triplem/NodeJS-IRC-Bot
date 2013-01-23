@@ -1,0 +1,21 @@
+{
+  "author": "Michael Owens (http://www.michaelowens.nl)",
+  "name": "nodejs-IRC-Bot",
+  "description": "An Open Source IRC Bot",
+  "version": "0.0.4",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/ktiedt/NodeJS-IRC-Bot"
+  },
+  "main": "bot.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "dependencies": {
+    "pkgconfig": "0.0.4"
+  },
+  "licenses": {
+    "type": "UNLICENSE",
+    "url": "http://unlicense.org/"
+  }
+}
