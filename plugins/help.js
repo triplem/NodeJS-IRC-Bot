@@ -13,8 +13,10 @@ Plugin = exports.Plugin = function(irc) {
 	this.title = 'Help Messages';
 	this.version = '0.1';
 	this.author = 'Markus M. May';
+    this.irc = irc;
 
-	this.irc = irc;
+    this.help = 'This plugin provides the functionality to use the ' + irc.config.command + 'help command';
+    this.helpCommands = [irc.config.command + 'help - lists the existing plugins and their commands'];
 
     irc.addTrigger(this, 'help', this.trigHelp);
 };
@@ -32,11 +34,25 @@ Plugin.prototype.trigHelp = function(msg) {
 	params.shift();
     sys.puts("params: " + params[0]);
     if (typeof params[0] == 'undefined') {
-        chan.send('\002Available Plugins:\002');
+        irc.send(u, '\002Available Plugins\002 and their commands:');
         for(var name in irc.plugins) {
+            if (name == 'global') continue;
             var plugin = irc.plugins[name];
-            chan.send('Plugin: ' + plugin.name + ' ' + plugin.title + ' ' + plugin.version + ' ' 
-                + plugin.author);
+            irc.send(u, 'Plugin: ' + plugin.name + ' - ' + plugin.title + 
+                ' - v' + plugin.version + ' by ' + plugin.author);
+
+            var helpMessage = plugin.help;                        
+            if (typeof helpMessage !== 'undefined') {
+                irc.send(u, helpMessage);
+            }
+
+            var helpCommands = plugin.helpCommands;
+            if (typeof helpCommands !== 'undefined') { 
+                for (i in helpCommands) {
+                    irc.send(u, helpCommands[i]);
+                }
+            }
+
         }
     } else {
 		chan.send('The word \002' + params[0] + '\002 is no longer allowed in here!');
