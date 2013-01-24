@@ -8,5 +8,5 @@
 	"command":	"!",
 	"debug":		true,
 
-	"plugins":	["global", "reload", "gezien", "textfilter", "help"]
+	"plugins":	["global", "reload", "gezien", "textfilter"]
 }
