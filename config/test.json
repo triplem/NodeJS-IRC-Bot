@@ -13,5 +13,5 @@
         }
     },
 
-    "plugins":  ["global", "reload", "lastseen", "textfilter", "freenode"]
+    "plugins":  ["global", "reload", "lastseen", "textfilter", "freenode", "8ball"]
 }

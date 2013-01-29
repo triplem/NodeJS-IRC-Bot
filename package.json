@@ -2,7 +2,7 @@
   "author": "Michael Owens (http://www.michaelowens.nl)",
   "name": "NodeJS-IRC-Bot",
   "description": "An Open Source IRC Bot written with NodeJS",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": {
     "type": "git",
     "url": "http://github.com/ktiedt/NodeJS-IRC-Bot"
