@@ -8,7 +8,7 @@
 var sys = require('util'),
 	irc = require('./irc'),
 	pkgconfig = require('pkgconfig'),
-	argv = require('optimist').default('config', 'config').argv; // alternative: nconf
+	argv = require('optimist').default('conf', 'config').argv; // alternative: nconf
 
 var confName = argv.conf;
 
