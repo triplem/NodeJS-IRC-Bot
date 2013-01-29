@@ -10,7 +10,7 @@ var sys = require('util'),
 	pkgconfig = require('pkgconfig'),
 	argv = require('optimist').default('config', 'config').argv; // alternative: nconf
 
-var confName = argv.conf;
+var confName = argv.config;
 
 /**
  * More advanced config
