@@ -6,7 +6,7 @@
     "realname": "LordTacoRealName",
     "channels": ["#lord-taco"],
     "command":  "!",
-    "debug":        true,
+    "debug":    true,
 
     "plugins":  ["global", "reload", "lastseen", "textfilter"]
 }
