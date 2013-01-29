@@ -19,7 +19,7 @@ Modify your configuration in config/config.json and start your bot with the foll
 Or create a new config file (e.g. test.json) in the config directory and start your bot with the 
 following command:
 
-    node bot.js --conf=test    
+    node bot.js --config=test    
 
 The bot will now attempt to connect. Turn on debugging to see the incoming/outgoing packets.
 
