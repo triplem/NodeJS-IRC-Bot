@@ -8,6 +8,7 @@
 var sys = require('util'),
 	irc = require('./lib/irc'),
 	pkgconfig = require('pkgconfig'),
+    winston = require('winston'),
 	argv = require('optimist').default('config', 'config').argv; // alternative: nconf
 
 var confName = argv.config;
@@ -24,6 +25,15 @@ var confName = argv.config;
  };
 
 var config = pkgconfig(options);
+
+var logger = new (winston.Logger)({
+    transports: [
+      new (winston.transports.Console)({ level: config.logLevel }),
+      new (winston.transports.File)({ level: config.logLevel, filename: 'ircbot.log' })
+    ]
+});
+
+config.logger = logger;
 
 /**
  * Let's power up

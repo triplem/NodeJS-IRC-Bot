@@ -1,12 +1,17 @@
 {
     "host":     "irc.freenode.com",
     "port":     6667,
-    "nick":     "LordTacoNew",
+    "nick":     "LordTaco",
     "username": "LordTacoName",
     "realname": "LordTacoRealName",
     "channels": ["#lord-taco"],
     "command":  "!",
-    "debug":    true,
+    "logLevel":  "verbose",
+    "pluginConfigs": {
+        "freenode": {
+            "nickPass": "averysecretpassword"
+        }
+    },
 
-    "plugins":  ["global", "reload", "lastseen", "textfilter"]
+    "plugins":  ["global", "reload", "lastseen", "textfilter", "freenode"]
 }

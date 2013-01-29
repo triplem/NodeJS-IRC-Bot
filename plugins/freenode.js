@@ -16,11 +16,18 @@ Plugin = exports.Plugin = function( irc ) {
   this.version = '0.1';
   this.author = 'Karl Tiedt';
 
-  this.nickPass = 'password';
-
   this.irc = irc;
+
+  try {
+    this.nickPass = this.irc.config.pluginConfigs.freenode.nickPass;
+  } catch (e) {
+    this.irc.logger.error('Cannot load config options of freenode plugin.', e);
+  }
+
 };
 
 Plugin.prototype.onConnect = function() {
-  this.irc.raw('NS id ' + this.nickPass);
+  if (typeof this.nickPass != 'undefined') {
+    this.irc.raw('NS id ' + this.nickPass);    
+  } 
 };
