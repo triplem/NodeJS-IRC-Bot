@@ -6,7 +6,7 @@
  * @copyright	Michael Owens 2011
  */
 var sys = require('util'),
-	irc = require('./lib/irc'),
+	irc = require('./irc'),
 	pkgconfig = require('pkgconfig'),
 	argv = require('optimist').default('conf', 'config').argv; // alternative: nconf
 
