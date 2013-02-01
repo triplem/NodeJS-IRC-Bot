@@ -9,7 +9,7 @@
     "logLevel":  "verbose",
     "pluginConfigs": {
         "freenode": {
-            "nickPass": "averysecretpassword"
+            "nickPass": "lordtaco"
         }
     },
 

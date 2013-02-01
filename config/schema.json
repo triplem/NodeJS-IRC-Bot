@@ -63,10 +63,15 @@
             "default": "."                        
         },
         "pluginConfigs": {
-            "description": "Plugin configurations.",
+            "description": "Plugin configurations, defined by the pluginname and the wanted property.",
             "type": "object",
             "required": false,
-            "default": [""]
+            "default": "",
+            "properties": {
+                "properties": {
+                    "type": "object"
+                }
+            }
         }
 
     }
