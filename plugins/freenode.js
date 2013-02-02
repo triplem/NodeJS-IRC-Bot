@@ -10,23 +10,41 @@
  */
 var util = require('util');
 
-Plugin = exports.Plugin = function( irc ) {
-    this.name = 'freenode';
+Plugin = exports.Plugin = function(ph) {
+    this.ph = ph;
+    this.name = this.ph.name;
+
     this.title = 'FreeNode Services';
     this.version = '0.1';
     this.author = 'Karl Tiedt';
 
-    this.irc = irc;
-
     try {
-        this.nickPass = this.irc.getPluginProperty(this.name, nickPass);
+        this.nickPass = this.ph.getPluginProperty('nickPass');
     } catch (e) {
-        this.irc.logger.error('Cannot load config options of freenode plugin.', e);
+        this.ph.irc.logger.error('Cannot load config options of freenode plugin.', e);
     }
+
+    this.ph.irc.addTrigger(this, 'identify', this.trigNickServLogin);
+    this.ph.irc.addTrigger(this, 'release', this.trigRelease);
 };
 
 Plugin.prototype.onConnect = function() {
     if (typeof this.nickPass != 'undefined') {
-        this.irc.raw('NS id ' + this.nickPass);    
+        this.nickServLogin();    
     } 
 };
+
+Plugin.prototype.nickServLogin = function() {
+    this.ph.irc.raw('NS id ' + this.nickPass);
+}
+
+Plugin.prototype.trigNickServLogin = function() {
+    this.nickServLogin();
+}
+
+Plugin.prototype.trigRelease = function(msg) {
+    var m = msg.arguments[1], // message 
+        params = m.split(' ');
+
+    this.ph.irc.raw('NS release ' + params[1]);
+}
