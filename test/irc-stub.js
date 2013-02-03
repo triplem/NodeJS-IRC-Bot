@@ -18,6 +18,8 @@ Server = exports.Server = function(config) {
         ]
     });
 
+    config.command = "!";
+
     this.logger = logger;
 
     this.initialize(config);

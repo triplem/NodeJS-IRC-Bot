@@ -18,7 +18,7 @@ Plugin = exports.Plugin = function(ph) {
 
 	this.filters = ['swine', 'politician', 'girl'];
 
-    this.ph.irc.addTrigger(this, 'addword', this.trigAddword);
+    this.ph.irc.addTrigger(this, 'textfilter', this.trigTextfilter);
 };
 
 Plugin.prototype.onMessage = function(msg) {
@@ -36,7 +36,7 @@ Plugin.prototype.onMessage = function(msg) {
 
     // if the bot itself uses bad language (e.g. on answering with an added word), 
     // do not send the message (do not disallow the word)
-    if (u == irc.nick || m.indexOf(irc.config.command + 'addword') === 0) {
+    if (u == irc.nick || m.indexOf(irc.config.command + 'textfilter') === 0) {
         disallow = false;
     }
 
@@ -45,7 +45,7 @@ Plugin.prototype.onMessage = function(msg) {
 	}
 };
 
-Plugin.prototype.trigAddword = function(msg) {
+Plugin.prototype.trigTextfilter = function(msg) {
 	var irc = this.ph.irc, // irc object
 	    c = msg.arguments[0], // channel
         chan = irc.channels[c], // channel object
@@ -54,10 +54,17 @@ Plugin.prototype.trigAddword = function(msg) {
         params = m.split(' ');
 
 	params.shift();
-    if (typeof params[0] == 'undefined') {
-        chan.send('\002Example:\002 ' + irc.config.command + 'addword <word>');
-    } else {
-        this.filters.push(params[0]);
-		chan.send('The word \002' + params[0] + '\002 is no longer allowed in here!');
+    if (typeof params[0] === 'undefined') {
+        chan.send('\002Example:\002 ' + irc.config.command + 'textfilter <command> <word>');
+    } else if (params[0] === 'addword') {
+        this.filters.push(params[1]);
+		chan.send('The word \002' + params[1] + '\002 is no longer allowed in here!');
+    } else if (params[0] === 'removeword') {
+        if (this.filters.indexOf(params[1]) > -1) {
+            this.filters.splice(this.filters.indexOf(params[1]));
+            chan.send('The word \002' + params[1] + '\002 is now allowed again!');            
+        } else {
+            chan.send('The given word \002' + params[1] + '\002 is not a disallowed word!');            
+        }
     }
 };
