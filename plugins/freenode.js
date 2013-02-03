@@ -24,8 +24,7 @@ Plugin = exports.Plugin = function(ph) {
         this.ph.irc.logger.error('Cannot load config options of freenode plugin.', e);
     }
 
-    this.ph.irc.addTrigger(this, 'identify', this.trigNickServLogin);
-    this.ph.irc.addTrigger(this, 'release', this.trigRelease);
+    this.ph.irc.addTrigger(this, 'nickserv', this.trigNickServ);
 };
 
 Plugin.prototype.onConnect = function() {
@@ -38,13 +37,31 @@ Plugin.prototype.nickServLogin = function() {
     this.ph.irc.raw('NS id ' + this.nickPass);
 }
 
-Plugin.prototype.trigNickServLogin = function() {
-    this.nickServLogin();
-}
-
-Plugin.prototype.trigRelease = function(msg) {
+Plugin.prototype.trigNickServ = function(msg) {
     var m = msg.arguments[1], // message 
-        params = m.split(' ');
+        params = m.split(' '),
+        irc = this.ph.irc;
 
-    this.ph.irc.raw('NS release ' + params[1]);
+    params.shift();
+
+    if (typeof params[0] == 'undefined') {
+        chan.send('\002Example:\002 ' + this.irc.config.command + 'freenode <command> <options>');
+    } else {
+        var seek = params[0].toLowerCase();
+
+        if (seek === 'login') {
+            // login to the nickserv server with given nick and password
+            this.nickServLogin();
+        } else if (seek === 'release') {
+            // release a used nick
+            if (typeof params[1] !== 'undefined') {
+                this.ph.irc.raw('NS release ' + params[1]);
+            }
+        } else if (seek === 'passwd') {
+            // change password with the given one
+            if (typeof params[1] !== 'undefined') {
+                this.ph.irc.raw('NS SET PASSWORD ' + params[1]);
+            }
+        }
+    }
 }

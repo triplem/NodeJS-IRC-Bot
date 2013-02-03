@@ -25,28 +25,36 @@ Plugin.prototype.trigAdmin = function(msg) {
         params = m.split(' '),
         irc = this.ph.irc;
 
-    params.shift();
 
-    if (typeof params[0] == 'undefined') {
+    try {
+        var commandObj = this.ph.parseTriggerMessage(msg);        
+    } catch (e) {
         chan.send('\002Example:\002 ' + this.irc.config.command + 'admin <command> <options>');
-    } else {
-        var seek = params[0].toLowerCase();
+    }
 
-        if (seek === 'nick') {
-            irc.raw('NICK', params[1]);            
-        } else if (seek === 'join') {
-            if (typeof params[1] !== 'undefined') {
-                var chan = new irc.channelObj(irc, params[1], true, params[2]);
-                irc.channels[chan.name] = chan;                
-            }
-        } else if (seek === 'part') {
-            if (typeof params[1] !== 'undefined') {
-                var chan = irc.channels[params[1]];
-                if (typeof chan !== 'undefined') {
-                    chan.part('admin requested me to leave!');
-                    delete irc.channels[params[1]];                    
-                }
+    var command = commandObj.command;
+    var options = commandObj.options;
+
+    console.log("command1: ", command);
+    console.log("options1: ", options);
+
+    if (command === 'nick') {
+        irc.raw('NICK', options[0]);         
+    } else if (command === 'join') {
+        if (typeof options[0] !== 'undefined') {
+            var chan = new irc.channelObj(irc, options[0], true, options[1]);
+            irc.channels[chan.name] = chan;                
+        }
+    } else if (command === 'part') {
+        if (typeof options[0] !== 'undefined') {
+            var chan = irc.channels[options[0]];
+            if (typeof chan !== 'undefined') {
+// could lead to errors, need to fix
+                chan.part('admin requested me to leave!');
+                delete irc.channels[options[0]];                    
             }
         }
+    } else if (seek === 'readnewmemo') {
+        irc.send('MemoServ', 'READ NEW');
     }
 }
