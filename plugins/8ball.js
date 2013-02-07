@@ -9,6 +9,8 @@ var util = require('util'),
 	basePlugin = require('./basePlugin');
 
 Plugin = exports.Plugin = function(irc, name) {
+	Plugin.super_.call(this, irc, name);
+	
 	this.title = '8 Ball';
 	this.version = '0.1';
 	this.author = 'Shaun Walker';
@@ -16,7 +18,6 @@ Plugin = exports.Plugin = function(irc, name) {
 	this.seen = [];
 
 	this.irc.addTrigger(this, '8ball', this.trig8Ball);
-
 };
 util.inherits(Plugin, basePlugin.BasePlugin);
 
