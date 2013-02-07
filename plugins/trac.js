@@ -24,10 +24,6 @@ Plugin = exports.Plugin = function(irc, name) {
     this.prefix = 'trac'; // allow inline matching via trac[changeset] or trac#ticket
     this.nemesis = 'dojogurl'; // do not announce tickets of this user is on the channel
 
-    if (this.irc.config.plugins.indexOf("couchdb_log") === -1) {
-        throw(this.name + ": requires couchdb_log plugin to be installed as well");
-    }
-
     this.irc.addTrigger(this, 'ticket', this.ticket);
     this.irc.addTrigger(this, 'changeset', this.changeset);
 };
