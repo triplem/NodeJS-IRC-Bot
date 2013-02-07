@@ -1,12 +1,11 @@
 var irc  = require('./irc-stub.js'),
-    ph = require('../lib/pluginHelper.js'),
     textfilter = require('../plugins/textfilter.js'),
     should = require('should'),    
     _ = require('underscore');
 
 describe("Textfilter", function(){
     var config = {};
-    var _irc, _ph, _textfilter;
+    var _irc, _textfilter;
 
     beforeEach(function() {
         _irc = new irc.Server(config);
