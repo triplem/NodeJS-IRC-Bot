@@ -7,17 +7,16 @@
  *
  */
 
-var sys = require('util');
+var util = require('util'),
+    basePlugin = require('./basePlugin');
 
-Plugin = exports.Plugin = function(ph) {
-    this.ph = ph;
-	this.name = this.ph.name;
+Plugin = exports.Plugin = function(irc, name) {
+    Plugin.super_.call(this, irc, name);
 
 	this.title = 'CouchDB Seen';
 	this.version = '0.1';
 	this.author = 'Karl Tiedt';
 
-	this.irc = this.ph.irc;
     if (this.irc.config.plugins.indexOf("couchdb_log") === -1) {
         throw(this.name + ": requires couchdb_log plugin to be installed as well");
     }
@@ -28,6 +27,7 @@ Plugin = exports.Plugin = function(ph) {
     this.db = irc.couchdb;
     this.irc.addTrigger( this, 'seen', this.seen );
 };
+util.inherits(Plugin, basePlugin.BasePlugin);
 
 // Trigger for seen behavior
 Plugin.prototype.seen = function(msg) {

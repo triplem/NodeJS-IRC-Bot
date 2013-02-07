@@ -10,8 +10,7 @@ describe("Textfilter", function(){
 
     beforeEach(function() {
         _irc = new irc.Server(config);
-        _ph = new ph.PluginHelper(_irc, 'textfilter');
-        _textfilter = new textfilter.Plugin(_ph);    
+        _textfilter = new textfilter.Plugin(_irc, 'textfilter');    
     })
 
     describe("#onMessage()", function() {
