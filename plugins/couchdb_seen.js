@@ -6,7 +6,6 @@
  * @copyright	Karl Tiedt 2011
  *
  */
-
 var util = require('util'),
     basePlugin = require('./basePlugin');
 

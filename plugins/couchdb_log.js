@@ -9,7 +9,8 @@
 
 var util = require('util'),
 	cradle = require('cradle'),
-	c = new(cradle.Connection)();
+	c = new(cradle.Connection)(),
+    basePlugin = require('./basePlugin');
 
 Plugin = exports.Plugin = function(irc, name) {
     Plugin.super_.call(this, irc, name);
