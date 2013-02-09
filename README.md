@@ -2,6 +2,8 @@ NodeJS IRC Bot
 ==============
 This is a plugin-based IRC Bot written in NodeJS and maintained by [Karl Tiedt](http://twitter.com/ktiedt).
 
+[![Build Status](https://travis-ci.org/triplem/NodeJS-IRC-Bot.png)](https://travis-ci.org/triplem/NodeJS-IRC-Bot)
+
 Prerequisites
 =============
 * NodeJS (tested under v0.8.17)
