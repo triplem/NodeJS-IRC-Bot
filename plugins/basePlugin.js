@@ -50,16 +50,20 @@ BasePlugin.prototype.parseTriggerMessage = function(msg) {
     return result;
 };
 
+/**
+ *
+ *
+ */
 BasePlugin.prototype.checkUser = function(nick, allowedGroup) {
     var user = this.irc.users[nick];
-    var allowedGroups = this.irc.config.allowedGroups;
+    var userGroups = this.irc.config.userGroups;
 
     if (user !== 'undefined') {
         var userGroup = user.group;
-        if (userGroup === 'undefined' || allowedGroups.indexOf(userGroup) < 0) {
+        if (userGroup === 'undefined' || userGroups.indexOf(userGroup) < 0) {
             return false;
         }
-        if (allowedGroups.indexOf(userGroup) <= allowedGroups.indexOf(allowedGroup)) {
+        if (userGroups.indexOf(userGroup) <= userGroups.indexOf(allowedGroup)) {
             return true;
         }
     } else {

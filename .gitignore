@@ -1,4 +1,5 @@
 .idea
+*.sublime*
 node_modules
 ircbot.log
 config/lordtaco.json
