@@ -15,21 +15,21 @@ describe("CouchDB Log", function(){
     var _irc, _couchdb_log;
 
     beforeEach(function() {
-        _irc = new irc.Server(config);
+        _irc = new irc.Irc(config);
         _couchdb_log = new couchdb_log.Plugin(_irc, 'couchdb_log');    
     })
 
     it('should have a name', function() {
-        JSON.stringify('couchdb_log').should.equal(JSON.stringify(_couchdb_log.name));
+        JSON.stringify(_couchdb_log.name).should.equal(JSON.stringify('couchdb_log'));
     }),
     it('should have a version', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_couchdb_log.version));
+        JSON.stringify(_couchdb_log.version).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have a title', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_couchdb_log.title));
+        JSON.stringify(_couchdb_log.title).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have an author', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_couchdb_log.author));
+        JSON.stringify(_couchdb_log.author).should.not.equal(JSON.stringify('undefined'));
     })
 
 });

@@ -23,14 +23,15 @@ util.inherits(Plugin, basePlugin.BasePlugin);
 
 Plugin.prototype.onMessage = function(msg) {
 	var irc = this.irc,
-        c = msg.arguments[0], // channel
-		u = irc.user(msg.prefix), // user
-		m = msg.arguments[1], // message
+        c = msg.arguments[0], // channel name
+		u = irc.user(msg.nick), // user
+		m = msg.arguments[1], // message text
         disallow = false;
 
 	for(var i = 0, z = this.filters.length; i < z; i++) {
 		if (m.toLowerCase().indexOf(this.filters[i]) != '-1') {
             disallow = true;
+            break;
         }
 	}
 
@@ -46,11 +47,10 @@ Plugin.prototype.onMessage = function(msg) {
 };
 
 Plugin.prototype.trigTextfilter = function(msg) {
-	var irc = this.irc, // irc object
-	    c = msg.arguments[0], // channel
-        chan = irc.channels[c], // channel object
-		u = irc.user(msg.prefix), // user
-		m = msg.arguments[1], // message
+	var irc = this.irc,
+        c = msg.arguments[0],
+        chan = irc.channels[c],
+        m = msg.arguments[1],
         params = m.split(' ');
 
 	params.shift();

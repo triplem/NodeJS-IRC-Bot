@@ -42,9 +42,7 @@ Plugin.prototype.onNick = function(msg) {
 };
 
 Plugin.prototype.updateUser = function(msg, argument) {
-
-	var u = this.irc.user(msg.prefix);
-    console.log(u, msg.prefix);
+	var u = msg.nick;	
 	this.seen[u.toLowerCase()] = new Date();
 
 	if (typeof argument != 'undefined') {
@@ -56,7 +54,7 @@ Plugin.prototype.updateUser = function(msg, argument) {
 
 Plugin.prototype.trigLastSeen = function(msg) {
 	var c = msg.arguments[0], // channel
-		u = this.irc.user(msg.prefix), // user
+		u = msg.nick, // user
 		m = msg.arguments[1], // message
         chan = this.irc.channels[c], // channel object
         params = m.split(' ');

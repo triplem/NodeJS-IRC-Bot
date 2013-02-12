@@ -15,21 +15,21 @@ describe("8ball", function(){
     var _irc, _8ball;
 
     beforeEach(function() {
-        _irc = new irc.Server(config);
+        _irc = new irc.Irc(config);
         _8ball = new ball.Plugin(_irc, '8ball');    
     })
 
     it('should have a name', function() {
-        JSON.stringify('8ball').should.equal(JSON.stringify(_8ball.name));
+        JSON.stringify(_8ball.name).should.equal(JSON.stringify('8ball'));
     }),
     it('should have a version', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_8ball.version));
+        JSON.stringify(_8ball.version).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have a title', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_8ball.title));
+        JSON.stringify(_8ball.title).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have an author', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_8ball.author));
+        JSON.stringify(_8ball.author).should.not.equal(JSON.stringify('undefined'));
     })
 
 });

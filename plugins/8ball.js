@@ -23,7 +23,6 @@ util.inherits(Plugin, basePlugin.BasePlugin);
 
 Plugin.prototype.trig8Ball = function(msg) {
 	var c = msg.arguments[0], // channel
-		u = this.irc.user(msg.prefix), // user
 		m = msg.arguments[1], // message
         chan = this.irc.channels[c], // channel object
         params = m.split(' ');

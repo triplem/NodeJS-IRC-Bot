@@ -54,7 +54,7 @@ Plugin.prototype.onQuit = function(msg) {
 //      nick changes are not channel specific so null the channel and use the new nick as the message
 Plugin.prototype.onNick = function(msg) {
     var irc = this.irc,
-        oldnick = irc.user(msg.prefix),
+        oldnick = msg.nick,
         user = irc.users[oldnick],
         newnick = msg.arguments[0];
 
@@ -66,7 +66,7 @@ Plugin.prototype.onNick = function(msg) {
 
 // getNick - generates nick value for database
 Plugin.prototype.getNick = function(msg) {
-    return this.irc.user(msg.prefix);
+    return msg.nick;
 };
 
 // getChannel - generate channel value for database

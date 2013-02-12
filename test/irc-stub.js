@@ -11,7 +11,7 @@ var util = require('util'),
     origIRC = require('../lib/irc.js');
 
 
-Server = exports.Server = function(config) {
+Irc = exports.Irc = function(config) {
     var logger = new (winston.Logger)({
         transports: [
           new (winston.transports.Console)({ level: "error" })
@@ -25,9 +25,9 @@ Server = exports.Server = function(config) {
     this.initialize(config);
 };
 
-util.inherits(Server, process.EventEmitter);
+util.inherits(Irc, process.EventEmitter);
 
-Server.prototype.initialize = function(config) {
+Irc.prototype.initialize = function(config) {
     // user constructor and user hash
     this.nick = 'stubBotNick';
 
@@ -45,17 +45,17 @@ Server.prototype.initialize = function(config) {
     this.config = config;
 };
 
-Server.prototype.user = function(nick){
+Irc.prototype.user = function(nick){
     return nick;
 }
 
-Server.prototype.addTrigger = function(plugin, trigger, callback) {
+Irc.prototype.addTrigger = function(plugin, trigger, callback) {
     if (typeof this.triggers[trigger] == 'undefined') {
         this.triggers[trigger ] = { plugin: plugin.name, callback: callback};
     }
 };
 
-Server.prototype.raw = function(cmd) {
+Irc.prototype.raw = function(cmd) {
 //    if (this.connection.readyState !== "open") {
 //        return this.disconnect("cannot send with readyState " + this.connection.readyState);
 //    }
@@ -64,7 +64,7 @@ Server.prototype.raw = function(cmd) {
 };
 
 // public method to send PRIVMSG cleanly
-Server.prototype.send = function(target, msg) {
+Irc.prototype.send = function(target, msg) {
 
     msg = Array.prototype.slice.call(arguments, 1).join(' ') + "\r\n";
 
@@ -72,9 +72,3 @@ Server.prototype.send = function(target, msg) {
         this.raw('PRIVMSG', target, ':' + msg);
     }
 };
-
-function parse(text) {
-    return origIRC.parse(text);
-};
-
-exports.parse = parse;

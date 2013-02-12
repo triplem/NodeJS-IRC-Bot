@@ -5,8 +5,7 @@
  * @website		http://www.michaelowens.nl
  * @copyright	Michael Owens 2011
  */
-var sys = require('util'),
-	irc = require('./lib/irc'),
+var irc = require('./lib/irc'),
 	pkgconfig = require('pkgconfig'),
     winston = require('winston'),
 	argv = require('optimist').default('config', 'config').argv; // alternative: nconf
@@ -38,5 +37,5 @@ config.logger = logger;
 /**
  * Let's power up
  */
-var ircClient = new irc.Server(config);
+var ircClient = new irc.Irc(config);
 ircClient.connect();

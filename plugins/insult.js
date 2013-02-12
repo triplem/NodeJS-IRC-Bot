@@ -23,7 +23,6 @@ Plugin.prototype.trigInsult = function(msg) {
 	var irc = this.irc, // irc object
 	    c = msg.arguments[0], // channel
         chan = irc.channels[c], // channel object
-		u = irc.user(msg.prefix), // user
 		m = msg.arguments[1], // message
         params = m.split(' ');
 

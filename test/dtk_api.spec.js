@@ -15,21 +15,21 @@ describe("DTK API", function(){
     var _irc, _dtk_api;
 
     beforeEach(function() {
-        _irc = new irc.Server(config);
+        _irc = new irc.Irc(config);
         _dtk_api = new dtk_api.Plugin(_irc, 'dtk_api');    
     })
 
     it('should have a name', function() {
-        JSON.stringify('dtk_api').should.equal(JSON.stringify(_dtk_api.name));
+        JSON.stringify(_dtk_api.name).should.equal(JSON.stringify('dtk_api'));
     }),
     it('should have a version', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_dtk_api.version));
+        JSON.stringify(_dtk_api.version).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have a title', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_dtk_api.title));
+        JSON.stringify(_dtk_api.title).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have an author', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_dtk_api.author));
+        JSON.stringify(_dtk_api.author).should.not.equal(JSON.stringify('undefined'));
     })
 
 });

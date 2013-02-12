@@ -32,7 +32,7 @@ util.inherits(Plugin, basePlugin.BasePlugin);
 
 Plugin.prototype.ticket = function(msg) {
 	var irc = this.irc,
-        user = irc.user.apply(irc, [msg.prefix]), // user
+        user = msg.nick, // user
         args = msg.arguments,
 		target = (args[0] === irc.nick ? user : args[0]), // target
 		message = args[1], // message
@@ -52,7 +52,7 @@ Plugin.prototype.ticket = function(msg) {
 
 Plugin.prototype.changeset = function(msg) {
 	var irc = this.irc,
-        user = irc.user(msg.prefix), // user
+        user = msg.nick, // user
         args = msg.arguments,
 		target = (args[0] === irc.nick ? user : args[0]), // target
 		message = args[1], // message
@@ -98,7 +98,7 @@ Plugin.prototype.announceChangeset = function(changeset, msg) {
 	var jsdom = require("jsdom"),
         irc = this.irc,
 		target = msg.arguments[0], // target
-        user = irc.user(msg.prefix), // nick who triggered
+        user = msg.nick, // nick who triggered
 		trac = this.host + '/changeset/' + changeset;
 
 	if (changeset && changeset.length && /^\d+$/.test(changeset)) {
@@ -125,7 +125,7 @@ Plugin.prototype.announceTicket = function(defect, msg) {
 		},
 		href = "http://bugs.dojotoolkit.org/ticket/" + defect,
         irc = this.irc,
-		user = irc.user(msg.prefix),
+		user = msg.nick,
 		send = irc.send,
 		req = http.request(options, function(res) {
 			res.setEncoding('utf8');

@@ -15,21 +15,21 @@ describe("Trac", function(){
     var _irc, _trac;
 
     beforeEach(function() {
-        _irc = new irc.Server(config);
+        _irc = new irc.Irc(config);
         _trac = new trac.Plugin(_irc, 'trac');    
     })
 
     it('should have a name', function() {
-        JSON.stringify('trac').should.equal(JSON.stringify(_trac.name));
+        JSON.stringify(_trac.name).should.equal(JSON.stringify('trac'));
     }),
     it('should have a version', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_trac.version));
+        JSON.stringify(_trac.version).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have a title', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_trac.title));
+        JSON.stringify(_trac.title).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have an author', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_trac.author));
+        JSON.stringify(_trac.author).should.not.equal(JSON.stringify('undefined'));
     })
 
 });

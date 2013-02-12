@@ -26,7 +26,7 @@ util.inherits(Plugin, basePlugin.BasePlugin);
 
 Plugin.prototype.api = function(msg) {
 	var irc = this.irc,
-        user = irc.user.apply(irc, [msg.prefix]), // user
+        user = msg.nick, // user
         args = msg.arguments,
 		target = (args[0] === irc.nick ? user : args[0]), // target
 		message = args[1], // message

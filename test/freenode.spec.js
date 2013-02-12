@@ -20,7 +20,7 @@ describe("Freenode", function(){
     var _irc, _freenode;
 
     beforeEach(function() {
-        _irc = new irc.Server(config);
+        _irc = new irc.Irc(config);
         _freenode = new freenode.Plugin(_irc, 'freenode');    
     })
 
@@ -29,29 +29,29 @@ describe("Freenode", function(){
             var call = _freenode.onConnect();
             var resultMessage = _irc.resultMessage;
             var result = "NS id defaultPassword \r\n";
-            JSON.stringify(result).should.equal(JSON.stringify(resultMessage));
+            JSON.stringify(resultMessage).should.equal(JSON.stringify(result));
         })
     }),
 //    it('should be possible to configure the password from outside', function() {
 //        var config = { plugins: { freenode: { nickPass: 'aConfiguredPassword'}}};        
-//        _irc = new irc.Server(config);
+//        _irc = new irc.Irc(config);
 //        _freenode = new freenode.Plugin(_irc);
 //        JSON.stringify('aConfiguredPassword').should.equal(JSON.stringify(_freenode.nickPass));
 //    }),    
     it('should have a name', function() {
-        JSON.stringify('freenode').should.equal(JSON.stringify(_freenode.name));
+        JSON.stringify(_freenode.name).should.equal(JSON.stringify('freenode'));
     }),
     it('should have a version', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_freenode.version));
+        JSON.stringify(_freenode.version).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have a title', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_freenode.title));
+        JSON.stringify(_freenode.title).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have an author', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_freenode.author));
+        JSON.stringify(_freenode.author).should.not.equal(JSON.stringify('undefined'));
     }),
     it('should have a default password', function() {
-        JSON.stringify('undefined').should.not.equal(JSON.stringify(_freenode.nickPass));        
+        JSON.stringify(_freenode.nickPass).should.not.equal(JSON.stringify('undefined'));        
     })
 
 });

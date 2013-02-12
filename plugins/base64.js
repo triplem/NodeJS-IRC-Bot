@@ -24,7 +24,6 @@ Plugin = exports.Plugin = function(irc, name) {
 
 Plugin.prototype.trigBase64e = function(msg) {
 	var c = msg.arguments[0], // channel
-		u = this.irc.user(msg.prefix), // user
 		m = msg.arguments[1], // message
         chan = this.irc.channels[c], // channel object
         params = m.split(' ');
@@ -40,7 +39,6 @@ Plugin.prototype.trigBase64e = function(msg) {
 
 Plugin.prototype.trigBase64d = function(msg) {
 	var c = msg.arguments[0], // channel
-		u = this.irc.user(msg.prefix), // user
 		m = msg.arguments[1], // message
         chan = this.irc.channels[c], // channel object
         params = m.split(' ');
