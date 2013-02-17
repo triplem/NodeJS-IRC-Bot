@@ -19,15 +19,20 @@ Plugin = exports.Plugin = function(irc, name) {
 util.inherits(Plugin, basePlugin.BasePlugin)
 
 Plugin.prototype.onNumeric = function(msg) {
-    var command = msg.command;
+    var command = msg.rawCommand;
 
     // 376 is end of MOTD/modes
     if (command !== '376') {
+        this.irc.logger.info('command send does not match (376 or repl_endofmotd) - exiting', command);
         return;
     }
 
+    this.irc.logger.info("trying to connect to channels...", msg);
+
     var irc = this.irc, // irc object
         userchans = irc.userchannels; // userchannels
+
+    this.irc.logger.info('connecting to userchans: ', userchans);    
 
     for (var i = 0; i < userchans.length; i++) {
         var channelName = userchans[i], password;
