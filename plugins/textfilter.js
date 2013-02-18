@@ -24,7 +24,7 @@ util.inherits(Plugin, basePlugin.BasePlugin);
 Plugin.prototype.onMessage = function(msg) {
 	var irc = this.irc,
         c = msg.arguments[0], // channel name
-		u = irc.user(msg.nick), // user
+		u = msg.nick, // nick
 		m = msg.arguments[1], // message text
         disallow = false;
 
