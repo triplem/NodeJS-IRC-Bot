@@ -23,6 +23,8 @@ describe("Textfilter", function(){
                   'PRIVMSG #stubChannel :\u0002stubOtherUserNick:\u0002 Watch your language!\r\n\r\n',
                 ':stubOtherUserNick stubBotNick #stubChannel :The message contains girl': 
                   'PRIVMSG #stubChannel :\u0002stubOtherUserNick:\u0002 Watch your language!\r\n\r\n',
+                ':stubOtherUserNick stubBotNick #stubChannel :A really long message, which contains girl and swine and politician and probably more bad words, who knows': 
+                  'PRIVMSG #stubChannel :\u0002stubOtherUserNick:\u0002 Watch your language!\r\n\r\n'
             };
 
             _.each(checks, function(result, text) {

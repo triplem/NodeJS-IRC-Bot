@@ -34,22 +34,14 @@
   },
   "devDependencies": {
     "should": "1.2.x",
-    "underscore": "*",
-    "mocha": "*",
-    "docco-husky": "*"
+    "underscore": "1.4.x",
+    "mocha": "1.8.x"
   },
   "licenses": {
     "type": "UNLICENSE",
     "url": "http://unlicense.org/"
   },
   "scripts": {
-    "test": "mocha --reporter spec test/*.spec.js",
-    "docco": "docco-husky bot.js lib/ plugins/ test/"
-  },
-  "docco_husky": {
-    "output_dir": "docs", 
-    "content_dir": "content",
-    "project_name": "NodeJS-IRC-Bot",
-    "show_timestamp": true
+    "test": "mocha --reporter spec --slow 0 test/*.spec.js"
   }  
 }

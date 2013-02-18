@@ -51,10 +51,23 @@ BasePlugin.prototype.parseTriggerMessage = function(msg) {
 };
 
 /**
+ * This method checks, if a user is member of the given group, or the group of the
+ * user is "higher" (meaning a smaller index) in the userGroups config array.
  *
+ * If the config option userCheck is set to something different then true, the
+ * method returns true and does noch do any further checks. If the property is not
+ * set, then the method runs the checks as well.
  *
+ * @param nick - the nick of the user
+ * @param allowedGroup - the group the user is checked against
  */
 BasePlugin.prototype.checkUser = function(nick, allowedGroup) {
+    var userCheck = this.irc.config.userCheck;
+
+    if (userCheck !== 'undefined' || userCheck !== 'true') {
+        return true;
+    }
+
     var user = this.irc.users[nick];
     var userGroups = this.irc.config.userGroups;
 

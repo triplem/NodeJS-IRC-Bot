@@ -70,7 +70,6 @@ describe("IRC", function(){
         _irc.onClose();
 
         ("closed").should.equal(con.readyState);
-
     })    
 
 });
