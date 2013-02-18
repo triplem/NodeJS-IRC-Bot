@@ -40,4 +40,16 @@ We do like to get pull requests for additional plugins, and we prefer plugins wi
 folder tests for examples). This is really easy and allows us to make sure that your plugin is still working, even
 if we change anything in the central irc module.
 
+ToDos
+=====
+
+In the following are some Todos still open, they are unsorted and not prioritized.
+
+* Implement user checks for plugins, so that the irc bot recognizes at least some basic "authorization"
+* Remove coupling between Irc, Users and Channels
+* Add documentation to base methods
+* Allow configuration changes during runtime
+* Add admin interface (web gui?)
+* Cleanup Hooks, Plugins and Triggers in Irc (are these really needed)?
+
 *** Originally written by [Michael Owens](http://www.michaelowens.nl).

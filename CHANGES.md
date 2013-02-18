@@ -1,3 +1,10 @@
+Version 0.0.10 (02/18/2013)
+==========================
+* ADDED:
+  * added testcases for IRC and several plugins
+* UPDATED:
+  * IRC (renamed Server-Class to Irc)
+
 Version 0.0.9 (02/07/2013)
 ==========================
 * ADDED:
